@@ -25,6 +25,9 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
     const userCollection = client.db("connectedLearning").collection("users");
+    const bookingCollection = client
+      .db("connectedLearning")
+      .collection("bookings");
     const courseCollection = client
       .db("connectedLearning")
       .collection("courses");
@@ -50,6 +53,13 @@ async function run() {
     app.post("/courses", async (req, res) => {
       const course = req.body;
       const result = await courseCollection.insertOne(course);
+      res.send(result);
+    });
+
+    // booking
+    app.post("/bookings", async (req, res) => {
+      const booking = req.body;
+      const result = await bookingCollection.insertOne(booking);
       res.send(result);
     });
     // Send a ping to confirm a successful connection
