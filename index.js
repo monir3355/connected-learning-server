@@ -31,6 +31,12 @@ async function run() {
     const courseCollection = client
       .db("connectedLearning")
       .collection("courses");
+
+    // get all users
+    app.get("/users", async (req, res) => {
+      const result = await userCollection.find({}).toArray();
+      res.send(result);
+    });
     // users create
     app.post("/users", async (req, res) => {
       const user = req.body;
@@ -49,13 +55,18 @@ async function run() {
       const result = await courseCollection.find({}).toArray();
       res.send(result);
     });
-    // class add
+    // courses add
     app.post("/courses", async (req, res) => {
       const course = req.body;
       const result = await courseCollection.insertOne(course);
       res.send(result);
     });
 
+    // get all courses
+    app.get("/bookings", async (req, res) => {
+      const result = await bookingCollection.find({}).toArray();
+      res.send(result);
+    });
     // booking
     app.post("/bookings", async (req, res) => {
       const booking = req.body;
